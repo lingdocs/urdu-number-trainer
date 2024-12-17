@@ -5,7 +5,6 @@ import ProgressBar from "./components/ProgressBar";
 import Select, { SingleValue } from "react-select";
 import { useReward } from "react-rewards";
 import Review from "./components/Review";
-// @ts-expect-error // type defs not working
 import Modal from "react-modal";
 import { toArabic } from "./lib/helpers";
 // import Review from "./components/Review";
