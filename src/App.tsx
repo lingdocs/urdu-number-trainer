@@ -198,8 +198,11 @@ function App() {
         }}
       >
         <h3>
-          <button style={{ width: "6rem" }} onClick={handleQuestion}>
-            ?
+          <button
+            style={{ width: progress === 0 && !questioned ? "8rem" : "6rem" }}
+            onClick={handleQuestion}
+          >
+            {progress === 0 && !questioned ? "Help" : "?"}
           </button>
         </h3>
         <h3>
