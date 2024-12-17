@@ -1,0 +1,27 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  /* z-index: $zindex-fixed; */
+}
+
+.progress-container {
+  width: 100%;
+  background-color: transparent;
+  height: 5px;
+  display: block;
+}
+
+.progress-bar {
+  width: 0%;
+  display: block;
+  height: inherit;
+}
