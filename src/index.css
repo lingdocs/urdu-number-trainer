@@ -13,10 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Urdu Noto Nastalic';
   src: url('/NotoNastaliqUrdu-VariableFont_wght.ttf');
-}
+} */
 
 a {
   font-weight: 500;
