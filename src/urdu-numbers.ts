@@ -99,5 +99,5 @@ export const urduNumbers: [string, string][] = [
   ["ستانوے", "sattānve"],
   ["اٹھانوے", "aṭṭhānve"],
   ["ننانوے", "ninyānve"],
-  ["سو", "so"],
+  ["سو", "sau"],
 ];

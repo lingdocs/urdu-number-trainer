@@ -4,6 +4,9 @@ import { urduNumbers } from "./urdu-numbers";
 import ProgressBar from "./components/ProgressBar";
 import Select, { SingleValue } from "react-select";
 import { useReward } from "react-rewards";
+import Review from "./components/Review";
+import Modal from "react-modal";
+import { toArabic } from "./lib/helpers";
 // import Review from "./components/Review";
 
 const options = [
@@ -36,7 +39,7 @@ function App() {
     value: 0,
     label: "1-100",
   });
-  // const [mode, setMode] = useState<"quiz" | "review">("quiz");
+  const [showReview, setShowReview] = useState<boolean>(false);
   function handleAdvance() {
     if (remaining.length === 0) {
       reward();
@@ -96,10 +99,28 @@ function App() {
           <Select options={options} onChange={handleChangeMode} value={range} />
         </div>
       </div>
-      {/* <button onClick={() => setMode("review")}>review</button>
-      <Review range={range.value} /> */}
+      {progress === 0 && (
+        <button onClick={() => setShowReview(true)}>review</button>
+      )}
+      <Modal
+        isOpen={showReview}
+        onRequestClose={() => setShowReview(false)}
+        style={{
+          content: {
+            maxWidth: "20rem",
+            margin: "0 auto",
+          },
+        }}
+        // contentLabel="Example Modal"
+      >
+        <Review range={range.value} />
+        <div style={{ margin: "0.75rem 0", textAlign: "center" }}>
+          <button onClick={() => setShowReview(false)}>close</button>
+        </div>
+      </Modal>
       {!questioned ? (
         <h2
+          className="urdu"
           style={{
             width,
             fontSize: "4rem",
@@ -109,12 +130,14 @@ function App() {
         </h2>
       ) : (
         <div style={{ width }}>
-          <h2 style={{ fontSize: "3rem" }}>{toArabic(currentNum)}</h2>
+          <h2 className="urdu" style={{ fontSize: "3rem" }}>
+            {toArabic(currentNum)}
+          </h2>
           <h2>
             <div
+              className="urdu"
               style={{
                 marginBottom: "2rem",
-                fontFamily: "Noto Nastaliq Urdu",
                 fontSize: "2.1rem",
               }}
             >
@@ -161,13 +184,6 @@ function makeFullArray(mode: number): number[] {
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
-}
-
-function toArabic(n: number) {
-  const id = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-  return n.toString().replace(/[0-9]/g, function (w) {
-    return id[+w];
-  });
 }
 
 function removeItem<T>(arr: T[], index: number) {

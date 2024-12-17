@@ -99,5 +99,5 @@ export const numbers = [
   "sattānve",
   "aṭṭhānve",
   "ninyānve",
-  "so",
+  "sau",
 ];
