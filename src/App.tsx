@@ -163,7 +163,7 @@ function App() {
       ) : currentNum !== undefined ? (
         <div style={{ width }}>
           <h2 className="urdu" style={{ fontSize: "3rem" }}>
-            {toArabic(currentNum)}
+            {toArabic(currentNum)} - (currentNum)
           </h2>
           <h2>
             <div
