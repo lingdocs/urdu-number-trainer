@@ -7,6 +7,7 @@ import { useReward } from "react-rewards";
 import Review from "./components/Review";
 import Modal from "react-modal";
 import { toArabic } from "./lib/helpers";
+import { useStickyState } from "use-sticky-reducer";
 // import Review from "./components/Review";
 
 const options = [
@@ -35,10 +36,13 @@ function App() {
     elementCount: 250,
     zIndex: 9999999,
   });
-  const [range, setRange] = useState<{ value: number; label: string }>({
-    value: 0,
-    label: "0-99",
-  });
+  const [range, setRange] = useStickyState<{ value: number; label: string }>(
+    {
+      value: 0,
+      label: "0-99",
+    },
+    "number-range"
+  );
   const [showReview, setShowReview] = useState<boolean>(false);
   const [showHelp, setShowingHelp] = useState<boolean>(false);
   function handleAdvance() {

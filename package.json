@@ -14,7 +14,8 @@
     "react-dom": "^18.3.1",
     "react-modal": "^3.16.3",
     "react-rewards": "^2.0.4",
-    "react-select": "^5.9.0"
+    "react-select": "^5.9.0",
+    "use-sticky-reducer": "^1.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
