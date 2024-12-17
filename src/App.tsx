@@ -2,21 +2,45 @@ import { useState } from "react";
 import "./App.css";
 import { urduNumbers } from "./urdu-numbers";
 import ProgressBar from "./components/ProgressBar";
+import Select, { SingleValue } from "react-select";
+import { useReward } from "react-rewards";
+
+const options = [
+  { value: 0, label: "1-100" },
+  { value: 1, label: "1-9" },
+  { value: 2, label: "10-19" },
+  { value: 3, label: "20-29" },
+  { value: 4, label: "30-39" },
+  { value: 5, label: "40-49" },
+  { value: 6, label: "50-59" },
+  { value: 7, label: "60-69" },
+  { value: 8, label: "70-79" },
+  { value: 9, label: "80-89" },
+  { value: 10, label: "90-99" },
+];
 
 // TODO: make a pool of stuff that you withdraw from to get all 100 numbers
 
 const width = "18rem";
 
 function App() {
-  const [remaining, setRemaining] = useState<number[]>(makeFullArray());
+  const [remaining, setRemaining] = useState<number[]>(makeFullArray(0));
   const [currentNum, setCurrentNum] = useState<number>(0);
   const [questioned, setQuestioned] = useState<boolean>(false);
+  const { reward } = useReward("rewardId", "confetti", {
+    elementCount: 250,
+    zIndex: 9999999,
+  });
+  const [mode, setMode] = useState<{ value: number; label: string }>({
+    value: 0,
+    label: "1-100",
+  });
   function handleAdvance() {
     if (questioned) {
       setQuestioned(false);
     }
     if (remaining.length === 0) {
-      setRemaining(makeFullArray());
+      setRemaining(makeFullArray(mode.value));
       setCurrentNum(0);
       return;
     }
@@ -25,6 +49,9 @@ function App() {
     const newRem = removeItem(remaining, index);
     setRemaining(newRem);
     setCurrentNum(nextNum);
+    if (newRem.length === 0) {
+      reward();
+    }
   }
   function handleQuestion() {
     if (currentNum === 0) {
@@ -34,17 +61,37 @@ function App() {
       return;
     }
     setQuestioned(true);
-    setRemaining(makeFullArray());
+    setRemaining(makeFullArray(mode.value));
     // setCurrentNum(0);
   }
-  const progress = 100 - Math.floor((remaining.length / 100) * 100) - 1;
+  function handleChangeMode(
+    e: SingleValue<{
+      value: number;
+      label: string;
+    }>
+  ) {
+    if (e) {
+      const newRem = makeFullArray(e.value);
+      setMode(e);
+      setRemaining(newRem);
+      setCurrentNum(0);
+    }
+  }
+  const progress =
+    100 -
+    Math.floor((remaining.length / (mode.value === 0 ? 100 : 10)) * 100) -
+    (mode.value === 0 ? 1 : 0);
   return (
     <>
+      <span id="rewardId" />
       <ProgressBar progress={progress} />
       <div style={{ position: "absolute", top: "3rem", width }}>
         <h1>Urdu Number Trainer</h1>
-        <div>
+        <div style={{ marginTop: "-1rem", marginBottom: "1rem" }}>
           by <a href="https://www.lingdocs.com/">LingDocs</a>
+        </div>
+        <div style={{ textAlign: "left", marginTop: "0.5rem" }}>
+          <Select options={options} onChange={handleChangeMode} value={mode} />
         </div>
       </div>
       {!questioned ? (
@@ -102,8 +149,13 @@ function App() {
   );
 }
 
-function makeFullArray() {
-  return Array.from(Array(100).keys()).slice(1);
+function makeFullArray(mode: number): number[] {
+  const a = Array.from(Array(100).keys()).slice(1);
+  if (mode === 0) {
+    return a;
+  }
+  const offset = (mode - 1) * 10;
+  return a.slice(mode > 1 ? offset - 1 : 0, offset + 9);
 }
 
 function getRandomInt(max: number) {
