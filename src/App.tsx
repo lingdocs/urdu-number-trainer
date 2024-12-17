@@ -36,6 +36,9 @@ function App() {
     label: "1-100",
   });
   function handleAdvance() {
+    if (remaining.length === 0) {
+      reward();
+    }
     if (questioned) {
       setQuestioned(false);
     }
@@ -49,9 +52,6 @@ function App() {
     const newRem = removeItem(remaining, index);
     setRemaining(newRem);
     setCurrentNum(nextNum);
-    if (newRem.length === 0) {
-      reward();
-    }
   }
   function handleQuestion() {
     if (currentNum === 0) {
