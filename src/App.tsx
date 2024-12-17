@@ -95,16 +95,13 @@ function App() {
         </div>
       </div>
       {!questioned ? (
-        <h2>
-          <button
-            style={{
-              width,
-              fontSize: "3rem",
-            }}
-            onClick={handleAdvance}
-          >
-            {currentNum === 0 ? "شروع" : toArabic(currentNum)}
-          </button>
+        <h2
+          style={{
+            width,
+            fontSize: "4rem",
+          }}
+        >
+          {currentNum === 0 ? "شروع" : toArabic(currentNum)}
         </h2>
       ) : (
         <div style={{ width }}>
