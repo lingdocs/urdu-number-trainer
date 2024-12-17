@@ -4,6 +4,7 @@ import { urduNumbers } from "./urdu-numbers";
 import ProgressBar from "./components/ProgressBar";
 import Select, { SingleValue } from "react-select";
 import { useReward } from "react-rewards";
+// import Review from "./components/Review";
 
 const options = [
   { value: 0, label: "1-100" },
@@ -31,10 +32,11 @@ function App() {
     elementCount: 250,
     zIndex: 9999999,
   });
-  const [mode, setMode] = useState<{ value: number; label: string }>({
+  const [range, setRange] = useState<{ value: number; label: string }>({
     value: 0,
     label: "1-100",
   });
+  // const [mode, setMode] = useState<"quiz" | "review">("quiz");
   function handleAdvance() {
     if (remaining.length === 0) {
       reward();
@@ -43,7 +45,7 @@ function App() {
       setQuestioned(false);
     }
     if (remaining.length === 0) {
-      setRemaining(makeFullArray(mode.value));
+      setRemaining(makeFullArray(range.value));
       setCurrentNum(0);
       return;
     }
@@ -61,7 +63,7 @@ function App() {
       return;
     }
     setQuestioned(true);
-    setRemaining(makeFullArray(mode.value));
+    setRemaining(makeFullArray(range.value));
     // setCurrentNum(0);
   }
   function handleChangeMode(
@@ -72,15 +74,15 @@ function App() {
   ) {
     if (e) {
       const newRem = makeFullArray(e.value);
-      setMode(e);
+      setRange(e);
       setRemaining(newRem);
       setCurrentNum(0);
     }
   }
   const progress =
     100 -
-    Math.floor((remaining.length / (mode.value === 0 ? 100 : 10)) * 100) -
-    (mode.value === 0 ? 1 : 0);
+    Math.floor((remaining.length / (range.value === 0 ? 100 : 10)) * 100) -
+    (range.value === 0 ? 1 : 0);
   return (
     <>
       <span id="rewardId" />
@@ -91,9 +93,11 @@ function App() {
           by <a href="https://www.lingdocs.com/">LingDocs</a>
         </div>
         <div style={{ textAlign: "left", marginTop: "0.5rem" }}>
-          <Select options={options} onChange={handleChangeMode} value={mode} />
+          <Select options={options} onChange={handleChangeMode} value={range} />
         </div>
       </div>
+      {/* <button onClick={() => setMode("review")}>review</button>
+      <Review range={range.value} /> */}
       {!questioned ? (
         <h2
           style={{
