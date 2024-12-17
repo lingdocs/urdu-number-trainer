@@ -5,12 +5,13 @@ import ProgressBar from "./components/ProgressBar";
 import Select, { SingleValue } from "react-select";
 import { useReward } from "react-rewards";
 import Review from "./components/Review";
+// @ts-expect-error // type defs not working
 import Modal from "react-modal";
 import { toArabic } from "./lib/helpers";
 // import Review from "./components/Review";
 
 const options = [
-  { value: 0, label: "1-100" },
+  { value: 0, label: "1-99" },
   { value: 1, label: "1-9" },
   { value: 2, label: "10-19" },
   { value: 3, label: "20-29" },
@@ -173,13 +174,13 @@ function App() {
   );
 }
 
-function makeFullArray(mode: number): number[] {
+function makeFullArray(range: number): number[] {
   const a = Array.from(Array(100).keys()).slice(1);
-  if (mode === 0) {
+  if (range === 0) {
     return a;
   }
-  const offset = (mode - 1) * 10;
-  return a.slice(mode > 1 ? offset - 1 : 0, offset + 9);
+  const offset = (range - 1) * 10;
+  return a.slice(range > 1 ? offset - 1 : 0, offset + 9);
 }
 
 function getRandomInt(max: number) {
