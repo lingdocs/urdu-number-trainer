@@ -11,8 +11,8 @@ import { toArabic } from "./lib/helpers";
 // import Review from "./components/Review";
 
 const options = [
-  { value: 0, label: "1-99" },
-  { value: 1, label: "1-9" },
+  { value: 0, label: "0-99" },
+  { value: 1, label: "0-9" },
   { value: 2, label: "10-19" },
   { value: 3, label: "20-29" },
   { value: 4, label: "30-39" },
@@ -30,7 +30,7 @@ const width = "18rem";
 
 function App() {
   const [remaining, setRemaining] = useState<number[]>(makeFullArray(0));
-  const [currentNum, setCurrentNum] = useState<number>(0);
+  const [currentNum, setCurrentNum] = useState<number | undefined>(undefined);
   const [questioned, setQuestioned] = useState<boolean>(false);
   const { reward } = useReward("rewardId", "confetti", {
     elementCount: 250,
@@ -38,7 +38,7 @@ function App() {
   });
   const [range, setRange] = useState<{ value: number; label: string }>({
     value: 0,
-    label: "1-100",
+    label: "0-99",
   });
   const [showReview, setShowReview] = useState<boolean>(false);
   function handleAdvance() {
@@ -50,7 +50,7 @@ function App() {
     }
     if (remaining.length === 0) {
       setRemaining(makeFullArray(range.value));
-      setCurrentNum(0);
+      setCurrentNum(undefined);
       return;
     }
     const index = getRandomInt(remaining.length);
@@ -60,7 +60,7 @@ function App() {
     setCurrentNum(nextNum);
   }
   function handleQuestion() {
-    if (currentNum === 0) {
+    if (currentNum === undefined) {
       alert(
         "Press '➡️' to get the next number. See if you can say the number. If you don't know it, press '?' to get the answer. See if you can say all the numbers confidently without checking!"
       );
@@ -80,7 +80,7 @@ function App() {
       const newRem = makeFullArray(e.value);
       setRange(e);
       setRemaining(newRem);
-      setCurrentNum(0);
+      setCurrentNum(undefined);
     }
   }
   const progress =
@@ -127,9 +127,9 @@ function App() {
             fontSize: "4rem",
           }}
         >
-          {currentNum === 0 ? "شروع" : toArabic(currentNum)}
+          {currentNum === undefined ? "شروع" : toArabic(currentNum)}
         </h2>
-      ) : (
+      ) : currentNum !== undefined ? (
         <div style={{ width }}>
           <h2 className="urdu" style={{ fontSize: "3rem" }}>
             {toArabic(currentNum)}
@@ -149,6 +149,8 @@ function App() {
             </div>
           </h2>
         </div>
+      ) : (
+        <div>ERROR</div>
       )}
       <div
         style={{
@@ -175,12 +177,12 @@ function App() {
 }
 
 function makeFullArray(range: number): number[] {
-  const a = Array.from(Array(100).keys()).slice(1);
+  const a = Array.from(Array(100).keys());
   if (range === 0) {
     return a;
   }
   const offset = (range - 1) * 10;
-  return a.slice(range > 1 ? offset - 1 : 0, offset + 9);
+  return a.slice(offset, offset + 10);
 }
 
 function getRandomInt(max: number) {
