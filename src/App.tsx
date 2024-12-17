@@ -29,7 +29,7 @@ function App() {
   function handleQuestion() {
     if (currentNum === 0) {
       alert(
-        "Press '➡️' to get the next number. See if you can say the number. If you don't know it, press '?' to get the answer."
+        "Press '➡️' to get the next number. See if you can say the number. If you don't know it, press '?' to get the answer. See if you can say all the numbers confidently without checking!"
       );
       return;
     }
