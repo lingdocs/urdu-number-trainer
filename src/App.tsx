@@ -27,9 +27,15 @@ const options = [
 // TODO: make a pool of stuff that you withdraw from to get all 100 numbers
 
 const width = "18rem";
+const startingR = localStorage.getItem("number-range")
+  ? JSON.parse(localStorage.getItem("number-range") || "")
+  : options[0];
+console.log({ startingR });
 
 function App() {
-  const [remaining, setRemaining] = useState<number[]>(makeFullArray(0));
+  const [remaining, setRemaining] = useState<number[]>(
+    makeFullArray(startingR.value)
+  );
   const [currentNum, setCurrentNum] = useState<number | undefined>(undefined);
   const [questioned, setQuestioned] = useState<boolean>(false);
   const { reward } = useReward("rewardId", "confetti", {
