@@ -84,9 +84,8 @@ function App() {
     }
   }
   const progress =
-    100 -
-    Math.floor((remaining.length / (range.value === 0 ? 100 : 10)) * 100) -
-    (range.value === 0 ? 1 : 0);
+    100 - Math.floor((remaining.length / (range.value === 0 ? 100 : 10)) * 100);
+  console.log({ progress });
   return (
     <>
       <span id="rewardId" />
