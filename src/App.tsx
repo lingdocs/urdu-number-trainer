@@ -41,6 +41,7 @@ function App() {
     label: "0-99",
   });
   const [showReview, setShowReview] = useState<boolean>(false);
+  const [showHelp, setShowingHelp] = useState<boolean>(false);
   function handleAdvance() {
     if (remaining.length === 0) {
       reward();
@@ -61,9 +62,7 @@ function App() {
   }
   function handleQuestion() {
     if (currentNum === undefined) {
-      alert(
-        "Press '➡️' to get the next number. See if you can say the number. If you don't know it, press '?' to get the answer. See if you can say all the numbers confidently without checking!"
-      );
+      setShowingHelp(true);
       return;
     }
     setQuestioned(true);
@@ -85,22 +84,51 @@ function App() {
   }
   const progress =
     100 - Math.floor((remaining.length / (range.value === 0 ? 100 : 10)) * 100);
-  console.log({ progress });
   return (
     <>
       <span id="rewardId" />
       <ProgressBar progress={progress} />
-      <div style={{ position: "absolute", top: "3rem", width }}>
+      <div style={{ position: "absolute", top: "0.5rem", width }}>
         <h1>Urdu Number Trainer</h1>
         <div style={{ marginTop: "-1rem", marginBottom: "1rem" }}>
           by <a href="https://www.lingdocs.com/">LingDocs</a>
         </div>
-        <div style={{ textAlign: "left", marginTop: "0.5rem" }}>
+        <div style={{ textAlign: "left", marginTop: "2rem" }}>
           <Select options={options} onChange={handleChangeMode} value={range} />
         </div>
       </div>
-      {progress === 0 && (
-        <button onClick={() => setShowReview(true)}>review</button>
+      {showHelp && (
+        <Modal
+          isOpen={showHelp}
+          onRequestClose={() => setShowingHelp(false)}
+          style={{
+            content: {
+              maxWidth: "20rem",
+              margin: "0 auto",
+              height: "25rem",
+            },
+          }}
+          // contentLabel="Example Modal"
+        >
+          <h3>How to Use</h3>
+          <p>
+            This will give you all the numbers randomly, so you can practice
+            reviewing them.
+          </p>
+          <ol>
+            <li>Press '➡️' to get the next number.</li>
+            <li>
+              See if you can say the number. If you don't know it, press '?' to
+              get the answer.
+            </li>
+            <li>
+              See if you can say all the numbers confidently without checking!
+            </li>
+          </ol>
+          <div style={{ marginTop: "2rem", textAlign: "center" }}>
+            <button onClick={() => setShowingHelp(false)}>close</button>
+          </div>
+        </Modal>
       )}
       <Modal
         isOpen={showReview}
@@ -125,6 +153,7 @@ function App() {
             width,
             fontSize: "4rem",
           }}
+          onClick={handleAdvance}
         >
           {currentNum === undefined ? "شروع" : toArabic(currentNum)}
         </h2>
@@ -150,6 +179,11 @@ function App() {
         </div>
       ) : (
         <div>ERROR</div>
+      )}
+      {progress === 0 && (
+        <div style={{ marginTop: questioned ? "1.5rem" : "6rem" }}>
+          <button onClick={() => setShowReview(true)}>review</button>
+        </div>
       )}
       <div
         style={{
