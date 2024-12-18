@@ -24,8 +24,6 @@ const options = [
   { value: 10, label: "90-99" },
 ];
 
-// TODO: make a pool of stuff that you withdraw from to get all 100 numbers
-
 const width = "18rem";
 const startingR = localStorage.getItem("number-range")
   ? JSON.parse(localStorage.getItem("number-range") || "")
@@ -85,6 +83,9 @@ function App() {
     }>
   ) {
     if (e) {
+      if (questioned) {
+        setQuestioned(false);
+      }
       const newRem = makeFullArray(e.value);
       setRange(e);
       setRemaining(newRem);
