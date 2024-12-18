@@ -36,6 +36,13 @@ export default defineConfig({
             type: "image/webp",
             label: "Screen shot showing a number for review",
           },
+          {
+            src: "screenshots/desktop-screenshot.png",
+            sizes: "1280x720",
+            type: "image/webp",
+            form_factor: "wide",
+            label: "Screen shot showing a number for review",
+          },
         ],
         theme_color: "#fcfcfc",
         background_color: "#fcfcfc",
