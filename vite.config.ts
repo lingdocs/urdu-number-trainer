@@ -38,7 +38,7 @@ export default defineConfig({
           },
           {
             src: "screenshots/desktop-screenshot.png",
-            sizes: "1280x720",
+            sizes: "1282x750",
             type: "image/png",
             form_factor: "wide",
             label: "Screen shot showing a number for review",
