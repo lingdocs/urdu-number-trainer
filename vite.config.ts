@@ -29,8 +29,16 @@ export default defineConfig({
             type: "image/png",
           },
         ],
-        theme_color: "#ffffff",
-        background_color: "#ffffff",
+        screenshots: [
+          {
+            src: "screenshots/phone-screenshot.png",
+            sizes: "1280x720",
+            type: "image/webp",
+            label: "Screen shot showing a number for review",
+          },
+        ],
+        theme_color: "#fcfcfc",
+        background_color: "#fcfcfc",
         display: "standalone",
       },
     }),
