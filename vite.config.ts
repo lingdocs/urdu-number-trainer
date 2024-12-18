@@ -32,14 +32,14 @@ export default defineConfig({
         screenshots: [
           {
             src: "screenshots/phone-screenshot.png",
-            sizes: "1544x3199",
-            type: "image/webp",
+            sizes: "720x1482",
+            type: "image/png",
             label: "Screen shot showing a number for review",
           },
           {
             src: "screenshots/desktop-screenshot.png",
             sizes: "1280x720",
-            type: "image/webp",
+            type: "image/png",
             form_factor: "wide",
             label: "Screen shot showing a number for review",
           },
