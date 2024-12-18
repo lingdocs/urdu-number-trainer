@@ -17,6 +17,8 @@ export default defineConfig({
       manifest: {
         name: "Urdu Number Trainer",
         short_name: "Number Trainer",
+        id: "/",
+        start_url: "/",
         icons: [
           {
             src: "/android-chrome-192x192.png",
