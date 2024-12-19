@@ -10,7 +10,7 @@ import { toArabic } from "./lib/helpers";
 import { useStickyState } from "use-sticky-reducer";
 // import Review from "./components/Review";
 
-const options = [
+const ranges = [
   { value: 0, label: "0-99" },
   { value: 1, label: "0-9" },
   { value: 2, label: "10-19" },
@@ -24,10 +24,10 @@ const options = [
   { value: 10, label: "90-99" },
 ];
 
-const width = "18rem";
+const width = "20rem";
 const startingR = localStorage.getItem("number-range")
   ? JSON.parse(localStorage.getItem("number-range") || "")
-  : options[0];
+  : ranges[0];
 console.log({ startingR });
 
 function App() {
@@ -67,6 +67,16 @@ function App() {
     setRemaining(newRem);
     setCurrentNum(nextNum);
   }
+  function backRange() {
+    const newRange = range.value === 0 ? 10 : range.value - 1;
+    changeRange(newRange);
+    setRange(ranges.find((r) => r.value === newRange) || ranges[0]);
+  }
+  function forwardRange() {
+    const newRange = (range.value + 1) % ranges.length;
+    changeRange(newRange);
+    setRange(ranges.find((r) => r.value === newRange) || ranges[0]);
+  }
   function handleQuestion() {
     if (currentNum === undefined) {
       setShowingHelp(true);
@@ -76,6 +86,15 @@ function App() {
     setRemaining(makeFullArray(range.value));
     // setCurrentNum(0);
   }
+  function changeRange(r: number) {
+    if (questioned) {
+      setQuestioned(false);
+    }
+    const newRem = makeFullArray(r);
+    setRange(ranges.find((rng) => rng.value === r) || ranges[0]);
+    setRemaining(newRem);
+    setCurrentNum(undefined);
+  }
   function handleChangeMode(
     e: SingleValue<{
       value: number;
@@ -83,17 +102,21 @@ function App() {
     }>
   ) {
     if (e) {
-      if (questioned) {
-        setQuestioned(false);
-      }
-      const newRem = makeFullArray(e.value);
-      setRange(e);
-      setRemaining(newRem);
-      setCurrentNum(undefined);
+      changeRange(e.value);
     }
   }
   const progress =
     100 - Math.floor((remaining.length / (range.value === 0 ? 100 : 10)) * 100);
+  function RangeBackButton() {
+    return (
+      <div>
+        <button onClick={backRange}>⬅️</button>
+      </div>
+    );
+  }
+  function RangeForwardButton() {
+    return <button onClick={forwardRange}>➡️</button>;
+  }
   return (
     <>
       <span id="rewardId" />
@@ -103,8 +126,25 @@ function App() {
         <div style={{ marginTop: "-1rem", marginBottom: "1rem" }}>
           by <a href="https://www.lingdocs.com/">LingDocs</a>
         </div>
-        <div style={{ textAlign: "left", marginTop: "2rem" }}>
-          <Select options={options} onChange={handleChangeMode} value={range} />
+        <div
+          style={{
+            textAlign: "left",
+            marginTop: "2rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <RangeBackButton />
+          <div style={{ width: "50%" }}>
+            <Select
+              options={ranges}
+              onChange={handleChangeMode}
+              value={range}
+            />
+          </div>
+          <RangeForwardButton />
         </div>
       </div>
       {showHelp && (
@@ -152,8 +192,20 @@ function App() {
         // contentLabel="Example Modal"
       >
         <Review range={range.value} />
-        <div style={{ margin: "0.75rem 0", textAlign: "center" }}>
+        <div
+          style={{
+            marginTop: "2.5rem",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>
+            <RangeBackButton />
+          </div>
           <button onClick={() => setShowReview(false)}>close</button>
+          <div>
+            <RangeForwardButton />
+          </div>
         </div>
       </Modal>
       {!questioned ? (

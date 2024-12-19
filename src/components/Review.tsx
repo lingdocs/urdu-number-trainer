@@ -18,7 +18,7 @@ export default function Review({ range }: { range: number }) {
         const n = range === 0 ? i : i + (range - 1) * 10;
         return (
           <tr>
-            <td style={{ paddingTop: "1rem" }}>{n}</td>
+            <td style={{ paddingTop: "0.75rem" }}>{n}</td>
             <td className="urdu">{toArabic(n)}</td>
             <td className="urdu">{urdu}</td>
             <td>{ph}</td>
