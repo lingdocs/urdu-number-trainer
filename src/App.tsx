@@ -263,7 +263,7 @@ function App() {
         </h3>
         <h3>
           <button style={{ width: "6rem" }} onClick={handleAdvance}>
-            ➡️
+            🎲
           </button>
         </h3>
       </div>
