@@ -67,15 +67,15 @@ function App() {
     setRemaining(newRem);
     setCurrentNum(nextNum);
   }
-  function backRange() {
-    const newRange = range.value === 0 ? 10 : range.value - 1;
-    changeRange(newRange);
-    setRange(ranges.find((r) => r.value === newRange) || ranges[0]);
-  }
-  function forwardRange() {
-    const newRange = (range.value + 1) % ranges.length;
-    changeRange(newRange);
-    setRange(ranges.find((r) => r.value === newRange) || ranges[0]);
+  function adjustRange(dir: 1 | -1) {
+    return () => {
+      const newRange =
+        dir === -1 && range.value === 0
+          ? 10
+          : (range.value + dir) % ranges.length;
+      changeRange(newRange);
+      setRange(ranges.find((r) => r.value === newRange) || ranges[0]);
+    };
   }
   function handleQuestion() {
     if (currentNum === undefined) {
@@ -107,15 +107,12 @@ function App() {
   }
   const progress =
     100 - Math.floor((remaining.length / (range.value === 0 ? 100 : 10)) * 100);
-  function RangeBackButton() {
+  function RangeButton({ dir }: { dir: 1 | -1 }) {
     return (
       <div>
-        <button onClick={backRange}>⬅️</button>
+        <button onClick={adjustRange(dir)}>{dir === 1 ? "➡️" : "⬅️"}</button>
       </div>
     );
-  }
-  function RangeForwardButton() {
-    return <button onClick={forwardRange}>➡️</button>;
   }
   return (
     <>
@@ -136,7 +133,7 @@ function App() {
             width: "100%",
           }}
         >
-          <RangeBackButton />
+          <RangeButton dir={-1} />
           <div style={{ width: "50%" }}>
             <Select
               options={ranges}
@@ -144,7 +141,7 @@ function App() {
               value={range}
             />
           </div>
-          <RangeForwardButton />
+          <RangeButton dir={1} />
         </div>
       </div>
       {showHelp && (
@@ -200,11 +197,11 @@ function App() {
           }}
         >
           <div>
-            <RangeBackButton />
+            <RangeButton dir={-1} />
           </div>
           <button onClick={() => setShowReview(false)}>close</button>
           <div>
-            <RangeForwardButton />
+            <RangeButton dir={1} />
           </div>
         </div>
       </Modal>

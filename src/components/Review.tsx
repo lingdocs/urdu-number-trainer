@@ -9,11 +9,6 @@ export default function Review({ range }: { range: number }) {
       : urduNumbers.slice(range > 1 ? offset : 0, offset + 10);
   return (
     <table style={{ fontSize: "1.2rem" }}>
-      {/* <tr>
-      <th>Company</th>
-      <th>Contact</th>
-      <th>Country</th>
-    </tr> */}
       {nums.map(([urdu, ph], i) => {
         const n = range === 0 ? i : i + (range - 1) * 10;
         return (
