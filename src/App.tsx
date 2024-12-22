@@ -10,6 +10,7 @@ import Modal from "react-modal";
 import { width } from "./lib/width";
 import { useState } from "react";
 import Review from "./components/Review";
+import { Shake } from "reshake";
 
 const initialState = restartRange("all");
 
@@ -19,12 +20,21 @@ function App() {
   });
   const [showingReview, setShowingReview] = useState<boolean>(false);
   const [showingHelp, setShowingHelp] = useState<boolean>(false);
+  const [shakingDice, setShakingDice] = useState<boolean>(false);
   const [state, dispatch] = useStickyReducer(
     reducer(reward),
     initialState,
     "numbers-state-1"
   );
   const progress = getProgress(state);
+  function rollDice() {
+    setShakingDice(true);
+    dispatch({ type: "roll dice" });
+    setTimeout(() => {
+      setShakingDice(false);
+    }, 150);
+  }
+  console.log({ shakingDice });
   return (
     <>
       <span id="rewardId" />
@@ -85,11 +95,10 @@ function App() {
           </button>
         </h3>
         <h3>
-          <button
-            style={{ width: "6rem" }}
-            onClick={() => dispatch({ type: "roll dice" })}
-          >
-            🎲
+          <button style={{ width: "6rem" }} onClick={rollDice}>
+            <Shake h={15} v={15} r={30} active={shakingDice} fixed={true}>
+              🎲
+            </Shake>
           </button>
         </h3>
         <Modal
