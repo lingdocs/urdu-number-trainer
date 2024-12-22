@@ -18,24 +18,20 @@ function App() {
     zIndex: 9999999,
   });
   const [showingReview, setShowingReview] = useState<boolean>(false);
+  const [showingHelp, setShowingHelp] = useState<boolean>(false);
   const [state, dispatch] = useStickyReducer(
     reducer(reward),
     initialState,
     "numbers-state-1"
   );
-  function handleQuestion() {
-    alert(
-      "Press '➡️' to get the next number. See if you can say the number. If you don't know it, press '?' to get the answer. See if you can say all the numbers confidently without checking!"
-    );
-  }
   const progress = getProgress(state);
   return (
     <>
       <span id="rewardId" />
       <ProgressBar progress={progress} />
-      <div style={{ position: "absolute", top: "3rem", width }}>
+      <div style={{ position: "absolute", top: "2rem", width }}>
         <h1>Urdu Number Trainer</h1>
-        <div style={{ marginTop: "-1rem", marginBottom: "1rem" }}>
+        <div style={{ marginTop: "-1rem", marginBottom: "2rem" }}>
           by <a href="https://www.lingdocs.com/">LingDocs</a>
         </div>
         <RangeSelect
@@ -56,12 +52,16 @@ function App() {
               fontSize: "6rem",
             }}
           >
-            {state.current === undefined ? "شروع" : toArabic(state.current)}
+            {state.current === undefined ? (
+              <div style={{ margin: "2rem 0" }}>شروع</div>
+            ) : (
+              toArabic(state.current)
+            )}
           </div>
-          {progress === 0 && (
-            <button onClick={() => setShowingReview(true)}>review</button>
-          )}
         </div>
+      )}
+      {(progress === 0 || state.failed) && (
+        <button onClick={() => setShowingReview(true)}>review</button>
       )}
       <div
         style={{
@@ -76,7 +76,9 @@ function App() {
           <button
             style={{ width: "6rem" }}
             onClick={
-              progress === 0 ? handleQuestion : () => dispatch({ type: "fail" })
+              progress === 0
+                ? () => setShowingHelp(true)
+                : () => dispatch({ type: "fail" })
             }
           >
             ?
@@ -105,6 +107,38 @@ function App() {
           <Review range={state.range} />
           <div style={{ margin: "0.75rem 0", textAlign: "center" }}>
             <button onClick={() => setShowingReview(false)}>close</button>
+          </div>
+        </Modal>
+        <Modal
+          isOpen={showingHelp}
+          onRequestClose={() => setShowingHelp(false)}
+          style={{
+            content: {
+              maxWidth: "20rem",
+              margin: "0 auto",
+            },
+          }}
+          ariaHideApp={false}
+          contentLabel="Review Modal"
+        >
+          <h3>Urdu Number Trainer</h3>
+          <p>
+            This app will help you review Urdu numbers by giving you all the
+            numbers randomly.
+          </p>
+          <h4>How to use:</h4>
+          <ul>
+            <li>Choose a range of numbers you want to work on.</li>
+            <li>Press '🎲' to get the next number.</li>
+            <li>See if you can say the number.</li>
+            <li>If you don't know it, press '?' to get the answer.</li>
+            <li>
+              See if you can say all the numbers quickly and confidently without
+              checking!
+            </li>
+          </ul>
+          <div style={{ margin: "1.5rem 0", textAlign: "center" }}>
+            <button onClick={() => setShowingHelp(false)}>close</button>
           </div>
         </Modal>
       </div>

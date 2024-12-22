@@ -11,7 +11,7 @@ export default function FailDisplay({
     return null;
   }
   return (
-    <div style={{ width, marginTop: "1rem" }}>
+    <div style={{ width, marginTop: "4rem", marginBottom: "1rem" }}>
       <div
         style={{
           display: "flex",
@@ -35,7 +35,6 @@ export default function FailDisplay({
       <div
         className="urdu"
         style={{
-          marginBottom: "1rem",
           fontSize: "4rem",
         }}
       >
