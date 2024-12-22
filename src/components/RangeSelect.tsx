@@ -23,6 +23,7 @@ export function RangeSelect(props: {
     <div style={{ textAlign: "left", marginTop: "0.5rem" }}>
       <Select
         options={options}
+        isSearchable={false}
         onChange={(e) => props.handleChange(e?.value ?? "all")}
         value={options.find((o) => o.value === props.value)}
       />
