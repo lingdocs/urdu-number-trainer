@@ -29,7 +29,7 @@ export default function FailDisplay({
             marginLeft: "1rem",
           }}
         >
-          / 23
+          / {current}
         </div>
       </div>
       <div
