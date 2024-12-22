@@ -2,7 +2,7 @@ import Select from "react-select";
 import { State } from "../lib/types";
 
 const options: { value: State["range"]; label: string }[] = [
-  { value: "all", label: "1-100" },
+  { value: "all", label: "0-99" },
   { value: 0, label: "0-9" },
   { value: 1, label: "10-19" },
   { value: 2, label: "20-29" },
@@ -23,7 +23,7 @@ export function RangeSelect(props: {
     <div style={{ textAlign: "left", marginTop: "0.5rem" }}>
       <Select
         options={options}
-        onChange={(e) => props.handleChange(e?.value || "all")}
+        onChange={(e) => props.handleChange(e?.value ?? "all")}
         value={options.find((o) => o.value === props.value)}
       />
     </div>

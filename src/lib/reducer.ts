@@ -16,6 +16,7 @@ type Action =
 export function reducer(reward: () => void) {
   return (state: State, action: Action) => {
     if (action.type === "change range") {
+      console.log({ action });
       return restartRange(action.payload);
     }
     if (action.type === "roll dice") {
