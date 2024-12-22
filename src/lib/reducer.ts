@@ -42,6 +42,7 @@ export function restartRange(range: NumRange): State {
     remaining,
     current: undefined,
     failed: false,
+    customRange: [0, 99],
   };
 }
 

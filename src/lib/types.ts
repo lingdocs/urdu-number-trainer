@@ -5,4 +5,5 @@ export type State = {
   remaining: number[];
   current: number | undefined;
   failed: boolean;
+  customRange: [0, 99];
 };

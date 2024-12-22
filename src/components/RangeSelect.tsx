@@ -1,7 +1,7 @@
 import Select from "react-select";
-import { State } from "../lib/types";
+import { NumRange, State } from "../lib/types";
 
-const options: { value: State["range"]; label: string }[] = [
+const options: { value: NumRange; label: string }[] = [
   { value: "all", label: "0-99" },
   { value: 0, label: "0-9" },
   { value: 1, label: "10-19" },
@@ -13,6 +13,7 @@ const options: { value: State["range"]; label: string }[] = [
   { value: 7, label: "70-79" },
   { value: 8, label: "80-89" },
   { value: 9, label: "90-99" },
+  // { value: "custom", label: "Custom Range" },
 ];
 
 export function RangeSelect(props: {
