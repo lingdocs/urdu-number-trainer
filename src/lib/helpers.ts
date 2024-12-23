@@ -13,6 +13,6 @@ export function assertUnreachable(x: never): never {
 }
 
 export function getProgress(state: State): number {
-  const total = state.range === "all" ? 100 : 10;
+  const total = state.range.end - state.range.start + 1;
   return 100 - Math.floor((state.remaining.length / total) * 100);
 }

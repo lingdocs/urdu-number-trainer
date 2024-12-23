@@ -33,16 +33,11 @@ export function reducer(reward: () => void) {
 }
 
 export function restartRange(range: NumRange): State {
-  const remaining =
-    range === "all"
-      ? arrayFromTo(0, 99)
-      : arrayFromTo(range * 10, range * 10 + 9);
   return {
     range,
-    remaining,
+    remaining: arrayFromTo(range),
     current: undefined,
     failed: false,
-    customRange: [0, 99],
   };
 }
 
@@ -66,13 +61,9 @@ function rollDice(state: State, reward: () => void): State {
 
 /**
  * creates an array from integers 'start' to 'end' inclusive
- *
- * @param start - starting integer of the array
- * @param end - ending integer of the array
- * @returns an array of integers [start, ..., end]
  */
-function arrayFromTo(start: number, end: number): number[] {
-  return Array.from(Array(end + 1).keys()).slice(start);
+function arrayFromTo(range: NumRange): number[] {
+  return Array.from(Array(range.end + 1).keys()).slice(range.start);
 }
 
 function getRandomInt(max: number) {

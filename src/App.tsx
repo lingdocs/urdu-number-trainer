@@ -12,7 +12,7 @@ import { useState } from "react";
 import Review from "./components/Review";
 import { Shake } from "reshake";
 
-const initialState = restartRange("all");
+const initialState = restartRange({ start: 0, end: 99 });
 
 function App() {
   const { reward } = useReward("rewardId", "confetti", {

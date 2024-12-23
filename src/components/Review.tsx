@@ -3,16 +3,12 @@ import { NumRange } from "../lib/types";
 import { urduNumbers } from "../urdu-numbers";
 
 export default function Review({ range }: { range: NumRange }) {
-  const offset = range === "all" ? 0 : range * 10;
-  const nums = urduNumbers.slice(
-    offset,
-    range === "all" ? undefined : offset + 10
-  );
+  const nums = urduNumbers.slice(range.start, range.end + 1);
   return (
     <table style={{ fontSize: "1.2rem" }}>
       <tbody>
         {nums.map(([urdu, ph], i) => {
-          const n = range === "all" ? i : i + range * 10;
+          const n = i + range.start;
           return (
             <tr key={i}>
               <td>{n}</td>
