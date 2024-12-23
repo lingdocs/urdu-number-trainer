@@ -122,12 +122,12 @@ function App() {
           onRequestClose={() => setShowingHelp(false)}
           style={{
             content: {
-              maxWidth: "20rem",
+              maxWidth: width,
               margin: "0 auto",
             },
           }}
           ariaHideApp={false}
-          contentLabel="Review Modal"
+          contentLabel="Help Modal"
         >
           <h3>Urdu Number Trainer</h3>
           <p>
