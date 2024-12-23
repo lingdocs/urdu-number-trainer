@@ -25,7 +25,7 @@ function App() {
   const [state, dispatch] = useStickyReducer(
     reducer(reward),
     initialState,
-    "numbers-state-4"
+    "numbers-state-5"
   );
   const progress = getProgress(state);
   function rollDice() {
