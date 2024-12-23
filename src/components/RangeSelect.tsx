@@ -1,5 +1,5 @@
 import Select from "react-select";
-import { NumRange, State } from "../lib/types";
+import { NumRange } from "../lib/types";
 
 const options: { value: NumRange; label: string }[] = [
   { value: { start: 0, end: 99 }, label: "0-99" },
@@ -16,21 +16,45 @@ const options: { value: NumRange; label: string }[] = [
 ];
 
 export function RangeSelect(props: {
-  handleChange: (range: State["range"]) => void;
-  value: State["range"];
+  handleChange: (range: NumRange[]) => void;
+  value: NumRange[];
 }) {
+  const value = props.value.flatMap((x) => {
+    const found = options.find((o) => numRangeEqual(o.value, x));
+    return found ? [found] : [];
+  });
   return (
     <div style={{ textAlign: "left", marginTop: "0.5rem" }}>
       <Select
+        isMulti
         options={options}
         isSearchable={false}
-        onChange={(e) => props.handleChange(e?.value ?? { start: 0, end: 99 })}
-        value={options.find((o) => numRangeEqual(o.value, props.value))}
+        isClearable={false}
+        onChange={(e) => {
+          const range = [...e.values()].map((x) => x.value);
+          const hasFullRange = range.some(isFullRange);
+          if (
+            (hasFullRange && !props.value.some(isFullRange)) ||
+            (!hasFullRange && range.length === 10)
+          ) {
+            return props.handleChange([{ start: 0, end: 99 }]);
+          }
+          props.handleChange(
+            range
+              .filter((x) => !isFullRange(x))
+              .sort((a, b) => a.start - b.start)
+          );
+        }}
+        value={value}
       />
     </div>
   );
 }
 
+function isFullRange(a: NumRange): boolean {
+  return a.start === 0 && a.end === 99;
+}
+
 function numRangeEqual(a: NumRange, b: NumRange): boolean {
-  return a.start === b.start && a.start === b.start;
+  return a.start === b.start && a.end === b.end;
 }

@@ -6,7 +6,7 @@ export type NumRange = {
 };
 
 export type State = {
-  range: NumRange;
+  range: NumRange[];
   remaining: number[];
   current: number | undefined;
   failed: boolean;

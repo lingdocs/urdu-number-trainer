@@ -12,7 +12,7 @@ import { useState } from "react";
 import Review from "./components/Review";
 import { Shake } from "reshake";
 
-const initialState = restartRange({ start: 0, end: 99 });
+const initialState = restartRange([{ start: 0, end: 99 }]);
 
 function App() {
   const { reward } = useReward("rewardId", "confetti", {
@@ -24,7 +24,7 @@ function App() {
   const [state, dispatch] = useStickyReducer(
     reducer(reward),
     initialState,
-    "numbers-state-3"
+    "numbers-state-4"
   );
   const progress = getProgress(state);
   function rollDice() {
@@ -34,7 +34,6 @@ function App() {
       setShakingDice(false);
     }, 150);
   }
-  console.log({ shakingDice });
   return (
     <>
       <span id="rewardId" />
@@ -46,9 +45,9 @@ function App() {
         </div>
         <RangeSelect
           value={state.range}
-          handleChange={(range) =>
-            dispatch({ type: "change range", payload: range })
-          }
+          handleChange={(range) => {
+            dispatch({ type: "change range", payload: range });
+          }}
         />
       </div>
       {state.failed ? (

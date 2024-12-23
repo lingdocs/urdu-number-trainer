@@ -4,7 +4,7 @@ import { assertUnreachable } from "./helpers";
 type Action =
   | {
       type: "change range";
-      payload: NumRange;
+      payload: NumRange[];
     }
   | {
       type: "roll dice";
@@ -16,7 +16,6 @@ type Action =
 export function reducer(reward: () => void) {
   return (state: State, action: Action) => {
     if (action.type === "change range") {
-      console.log({ action });
       return restartRange(action.payload);
     }
     if (action.type === "roll dice") {
@@ -32,16 +31,20 @@ export function reducer(reward: () => void) {
   };
 }
 
-export function restartRange(range: NumRange): State {
+export function restartRange(range: NumRange[]): State {
   return {
     range,
-    remaining: arrayFromTo(range),
+    remaining: makeRangesArray(range),
     current: undefined,
     failed: false,
   };
 }
 
 function rollDice(state: State, reward: () => void): State {
+  if (state.range.length === 0) {
+    alert("Select a range of numbers first");
+    return state;
+  }
   if (state.failed) {
     return rollDice(restartRange(state.range), reward);
   }
@@ -57,6 +60,10 @@ function rollDice(state: State, reward: () => void): State {
     remaining,
     current,
   };
+}
+
+function makeRangesArray(range: NumRange[]): number[] {
+  return range.flatMap(arrayFromTo);
 }
 
 /**

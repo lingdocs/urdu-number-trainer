@@ -1,4 +1,4 @@
-import { State } from "./types";
+import { NumRange, State } from "./types";
 
 export function toArabic(n: number) {
   const id = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
@@ -13,6 +13,7 @@ export function assertUnreachable(x: never): never {
 }
 
 export function getProgress(state: State): number {
-  const total = state.range.end - state.range.start + 1;
+  const getRangeTotal = (r: NumRange) => r.end - r.start + 1;
+  const total = state.range.reduce((acc, curr) => acc + getRangeTotal(curr), 0);
   return 100 - Math.floor((state.remaining.length / total) * 100);
 }
