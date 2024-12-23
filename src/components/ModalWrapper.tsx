@@ -2,14 +2,17 @@ import Modal from "react-modal";
 
 export default function ModalWrapper(props: {
   isOpen: boolean;
-  close: () => void;
+  setShowing: (s: boolean) => void;
   children: JSX.Element;
   contentLabel: string;
 }) {
+  function handleClose() {
+    props.setShowing(false);
+  }
   return (
     <Modal
       isOpen={props.isOpen}
-      onRequestClose={close}
+      onRequestClose={handleClose}
       style={{
         content: {
           maxWidth: "20rem",
@@ -21,7 +24,7 @@ export default function ModalWrapper(props: {
     >
       {props.children}
       <div style={{ margin: "0.75rem 0", textAlign: "center" }}>
-        <button onClick={close}>close</button>
+        <button onClick={handleClose}>close</button>
       </div>
     </Modal>
   );

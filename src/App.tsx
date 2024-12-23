@@ -103,14 +103,14 @@ function App() {
         </h3>
         <ModalWrapper
           isOpen={showingReview}
-          close={() => setShowingReview(false)}
+          setShowing={setShowingReview}
           contentLabel="Review Modal"
         >
           <Review range={state.range} />
         </ModalWrapper>
         <ModalWrapper
           isOpen={showingHelp}
-          close={() => setShowingHelp(false)}
+          setShowing={setShowingHelp}
           contentLabel="Help Modal"
         >
           <Help />
