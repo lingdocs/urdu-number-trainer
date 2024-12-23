@@ -6,11 +6,12 @@ import { getProgress, toArabic } from "./lib/helpers";
 import { reducer, restartRange } from "./lib/reducer";
 import { RangeSelect } from "./components/RangeSelect";
 import FailDisplay from "./components/FailDisplay";
-import Modal from "react-modal";
 import { width } from "./lib/width";
 import { useState } from "react";
 import Review from "./components/Review";
 import { Shake } from "reshake";
+import Help from "./components/Help";
+import ModalWrapper from "./components/ModalWrapper";
 
 const initialState = restartRange([{ start: 0, end: 99 }]);
 
@@ -100,55 +101,20 @@ function App() {
             </Shake>
           </button>
         </h3>
-        <Modal
+        <ModalWrapper
           isOpen={showingReview}
-          onRequestClose={() => setShowingReview(false)}
-          style={{
-            content: {
-              maxWidth: "20rem",
-              margin: "0 auto",
-            },
-          }}
-          ariaHideApp={false}
+          close={() => setShowingReview(false)}
           contentLabel="Review Modal"
         >
           <Review range={state.range} />
-          <div style={{ margin: "0.75rem 0", textAlign: "center" }}>
-            <button onClick={() => setShowingReview(false)}>close</button>
-          </div>
-        </Modal>
-        <Modal
+        </ModalWrapper>
+        <ModalWrapper
           isOpen={showingHelp}
-          onRequestClose={() => setShowingHelp(false)}
-          style={{
-            content: {
-              maxWidth: width,
-              margin: "0 auto",
-            },
-          }}
-          ariaHideApp={false}
+          close={() => setShowingHelp(false)}
           contentLabel="Help Modal"
         >
-          <h3>Urdu Number Trainer</h3>
-          <p>
-            This app will help you review Urdu numbers by giving you all the
-            numbers randomly.
-          </p>
-          <h4>How to use:</h4>
-          <ul>
-            <li>Choose a range of numbers you want to work on.</li>
-            <li>Press '🎲' to get the next number.</li>
-            <li>See if you can say the number.</li>
-            <li>If you don't know it, press '?' to get the answer.</li>
-            <li>
-              See if you can say all the numbers quickly and confidently without
-              checking!
-            </li>
-          </ul>
-          <div style={{ margin: "1.5rem 0", textAlign: "center" }}>
-            <button onClick={() => setShowingHelp(false)}>close</button>
-          </div>
-        </Modal>
+          <Help />
+        </ModalWrapper>
       </div>
     </>
   );
