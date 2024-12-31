@@ -44,7 +44,7 @@ function App() {
           flexDirection: "column",
           justifyContent: "space-between",
           textAlign: "center",
-          height: "95vh",
+          height: "95dvh",
           maxWidth: "400px",
           margin: "0 auto",
         }}
