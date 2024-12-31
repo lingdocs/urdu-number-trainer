@@ -1,4 +1,3 @@
-import { width } from "../lib/width";
 import { toArabic } from "../lib/helpers";
 import { urduNumbers } from "../urdu-numbers";
 
@@ -11,7 +10,7 @@ export default function FailDisplay({
     return null;
   }
   return (
-    <div style={{ width, marginTop: "4rem", marginBottom: "1rem" }}>
+    <div>
       <div
         style={{
           display: "flex",

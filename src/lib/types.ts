@@ -10,4 +10,5 @@ export type State = {
   remaining: number[];
   current: number | undefined;
   failed: boolean;
+  mode: "read" | "say";
 };
