@@ -75,9 +75,7 @@ function App() {
             <QuestionDisplay mode={state.mode} current={state.current} />
           )}
         </div>
-        <div>
-          <InputSection state={state} dispatch={dispatch} />
-        </div>
+        <InputSection state={state} dispatch={dispatch} />
       </div>
       <ModalWrapper
         isOpen={showingReview}

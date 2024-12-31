@@ -51,12 +51,14 @@ export default function InputSection({
       </div>
     );
   }
+  const running = !state.failed && state.current !== undefined;
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "center",
-        marginBottom: "2rem",
+        paddingBottom: running ? "10rem" : "3rem",
+        marginTop: running ? "-6rem" : "1rem",
       }}
     >
       <form

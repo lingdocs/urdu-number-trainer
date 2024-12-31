@@ -17,6 +17,7 @@
   background-color: transparent;
   height: 5px;
   display: block;
+  position: fixed;
 }
 
 .progress-bar {
