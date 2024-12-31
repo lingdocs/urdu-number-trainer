@@ -31,7 +31,7 @@ function App() {
   const [state, dispatch] = useStickyReducer(
     reducer(reward),
     initialState,
-    "numbers-state-6"
+    "numbers-state-7"
   );
   const progress = getProgress(state);
 
