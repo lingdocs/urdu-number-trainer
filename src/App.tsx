@@ -16,7 +16,7 @@ import QuestionDisplay from "./components/QuestionDisplay";
 import InputSection from "./components/InputSection";
 
 const initialState: State = restartRange({
-  range: [{ start: 0, end: 0 }],
+  range: [{ start: 0, end: 99 }],
   mode: "say",
   failed: false,
   current: 0,
