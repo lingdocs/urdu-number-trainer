@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Generated Anki Deck CSV
+urdu-numbers.csv
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
