@@ -52,7 +52,8 @@ function App() {
         <div style={{ marginBottom: "-2rem" }}>
           <h1>Urdu Number Trainer</h1>
           <div style={{ marginTop: "-1rem", marginBottom: "2rem" }}>
-            by <a href="https://www.lingdocs.com/">LingDocs</a>
+            by <a href="https://www.lingdocs.com/">LingDocs</a> - with{" "}
+            <a href="https://ankiweb.net/shared/info/558220595">Anki Deck</a>
           </div>
           <ModeSelect mode={state.mode} dispatch={dispatch} />
           <RangeSelect
