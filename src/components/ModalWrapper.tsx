@@ -1,4 +1,5 @@
 import Modal from "react-modal";
+import type { JSX } from "react";
 
 export default function ModalWrapper(props: {
   isOpen: boolean;
