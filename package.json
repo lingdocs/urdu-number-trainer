@@ -26,7 +26,7 @@
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@types/react-modal": "^3.16.3",
-    "@vitejs/plugin-react": "^5.0.0",
+    "@vitejs/plugin-react": "^5.0.1",
     "csv-stringify": "^6.6.0",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
@@ -34,7 +34,7 @@
     "globals": "^16.3.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.40.0",
-    "vite": "^7.1.2",
+    "vite": "^7.1.3",
     "vite-plugin-pwa": "^1.0.2"
   }
 }
